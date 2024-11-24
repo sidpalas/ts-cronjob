@@ -1,0 +1,21 @@
+name: Run Bun CronJob
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 1 *" # Use "0 * * * *" for hourly
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2.0.1
+
+      - name: Run CronJob
+        run: bun main.ts
+        env:
+          NAME: ${{ secrets.NAME }}
